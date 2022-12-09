@@ -27,6 +27,11 @@ class DefaultRoleSeeder extends Seeder
                 'display_name' => 'Member',
                 'is_default' => true,
             ],
+            [
+                'name' => 'player',
+                'display_name' => 'player',
+                'is_default' => true,
+            ],
         ];
         foreach ($roles as $role) {
             Role::create($role);

@@ -29,20 +29,12 @@ class DefaultPermissionSeeder extends Seeder
                 'display_name' => 'Manage Matches',
             ],
             [
-                'name'         => 'manage_seo_tools',
-                'display_name' => 'Manage Seo Tools',
-            ],
-            [
-                'name'         => 'manage_currencies',
-                'display_name' => 'Manage Currencies',
+                'name'         => 'manage_blog',
+                'display_name' => 'Manage Blog',
             ],
             [
                 'name'         => 'manage_settings',
                 'display_name' => 'Manage Settings',
-            ],
-            [
-                'name'         => 'manage_languages',
-                'display_name' => 'Manage Languages',
             ],
             [
                 'name'         => 'manage_roles',

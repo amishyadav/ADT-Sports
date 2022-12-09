@@ -134,7 +134,7 @@ class User extends Authenticatable implements HasMedia
     ];
 
      const MEMBER = 'member';
-    
+
     /**
      * The attributes that should be cast.
      *
@@ -154,7 +154,6 @@ class User extends Authenticatable implements HasMedia
         'email'       => 'required|email|unique:users,email|regex:/(.*)@(.*)\.(.*)/',
         'contact'       => 'required|nullable|unique:users,contact',
         'password'    => 'required|same:password_confirmation|min:6',
-        'country_id'   => 'required',
         'status'      => 'nullable',
         'zip' => 'nullable',
         'profile'     => 'nullable|mimes:jpeg,png,jpg|max:2000',
@@ -202,7 +201,7 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->first_name.' '.$this->last_name;
     }
-    
+
     public function address()
     {
         return $this->hasOne(Address::class, 'user_id' );
@@ -214,7 +213,7 @@ class User extends Authenticatable implements HasMedia
         self::STRIPE => 'Stripe',
         self::PAYPAL => 'PayPal',
         ];
-   
-   
-    
+
+
+
 }

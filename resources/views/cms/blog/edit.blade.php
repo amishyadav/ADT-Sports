@@ -49,18 +49,18 @@
                                         <div class="d-block">
                                             <div class="image-picker">
                                                 <div class="image previewImage" id="exampleInputImage"
-                                                     style="width: 320px; height: 235px;">
+                                                     style="width: 320px; height: 235px; background-image: url({{ !empty($blog->blog_image) ? $blog->blog_image : asset('web/media/avatars/male.png') }})">
                                                 </div>
                                                 <span class="picker-edit rounded-circle text-gray-500 fs-small"
                                                       data-bs-toggle="tooltip"
                                                       data-placement="top"
                                                       data-bs-original-title="{{ __('Blog Image') }}">
-                                                <label> 
-                                                    <i class="fa-solid fa-pen" id="profileImageIcon"></i> 
+                                                <label>
+                                                    <i class="fa-solid fa-pen" id="profileImageIcon"></i>
                                                     <input type="file" name="image" id="blogImage"
                                                            class="image-upload d-none"
-                                                           accept="image/*"/> 
-                                                </label> 
+                                                           accept="image/*"/>
+                                                </label>
                                             </span>
                                             </div>
                                         </div>

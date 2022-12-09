@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CookieController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LeagueController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\RoleController;
@@ -28,9 +29,7 @@ use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 |
 */
 
-Route::get('/', function () {
-   return view('front.layouts.app');
-});
+Route::get('/',[FrontController::class,'home'])->name('front.index');
 
 Route::get('/login', function () {
     return (!Auth::check()) ? view('auth.login') : Redirect::to(getDashboardURL());

@@ -48,8 +48,7 @@ class UserController extends AppBaseController
 
     public function create(): Application|Factory|View
     {
-        $country = $this->userRepo->getCountries();
-        return view('users.create',compact('country'));
+        return view('users.create');
     }
 
 
@@ -57,7 +56,7 @@ class UserController extends AppBaseController
     {
         $input = $request->all();
         $this->userRepo->store($input);
-        
+
         Flash::success( __('messages.flash.user_create'));
 
         return redirect(route('users.index'));
@@ -65,17 +64,15 @@ class UserController extends AppBaseController
 
     public function edit($id): Factory|View|Application
     {
-        $countries = $this->userRepo->getCountries();
-        
-        $user = User::with('address.country')->findOrFail($id);
-        
-        return  view('users.edit' ,compact('user','countries'));
+        $user = User::with('address')->findOrFail($id);
+
+        return  view('users.edit' ,compact('user'));
     }
 
 
     public function update(UpdateUserRequest $request, User $user): Application|RedirectResponse|Redirector
     {
-       
+
         $input = $request->all();
         $this->userRepo->update($input, $user);
 
@@ -91,9 +88,9 @@ class UserController extends AppBaseController
 
    public  function editProfile(): Factory|View|Application
    {
-        
+
        $user = getLogInUser();
-      
+
        if($user->hasRole('admin')){
            return view('profile.index', compact('user'));
        }elseif($user->hasRole('member')){
@@ -106,7 +103,7 @@ class UserController extends AppBaseController
         $user = getLogInUser();
 
         $user->update($request->all());
-        
+
         Flash::success( __('messages.flash.user_profile_update'));
 
         return redirect(route('profile.setting'));
@@ -136,7 +133,7 @@ class UserController extends AppBaseController
 
         $user = getLogInUser();
         $user->update(['language' => $language]);
-        
+
         return $this->sendSuccess('Language Update Successfully');
     }
     /**
@@ -146,9 +143,9 @@ class UserController extends AppBaseController
     public function updateDarkMode(): JsonResponse
     {
         $user = getLogInUser();
-       
+
         $darkEnabled = $user->theme_mode == true;
-        
+
         $user->update([
             'theme_mode' => !$darkEnabled,
         ]);
@@ -169,7 +166,7 @@ class UserController extends AppBaseController
 
         return redirect()->route('admin.dashboard');
     }
-    
+
     public function impersonateLeave(): RedirectResponse
     {
         getLogInUser()->leaveImpersonation();
@@ -196,7 +193,7 @@ class UserController extends AppBaseController
             );
             $imageRender = ((new \chillerlan\QRCode\QRCode())->render($image));
         }
-        
+
         return view('2fa_security.index',compact('imageRender','user','secret'));
     }
 
@@ -215,7 +212,7 @@ class UserController extends AppBaseController
        $data = [];
             $google2fa = new Google2FA();
             $data['secret'] = $google2fa->generateSecretKey();
-      
+
             $user = $request->user();
             $user->google2fa_secret = Crypt::encrypt($data['secret']);
             $data['user'] = $user->save();
@@ -252,7 +249,7 @@ class UserController extends AppBaseController
         }
         $user->google2fa_secret = null;
         $user->save();
-        
+
         return $this->sendResponse($user,'Two Factor Authentication Disabled successfully');
     }
 }

@@ -1,14 +1,7 @@
 <?php
 
-use App\Models\AppConfiguration;
-use App\Models\City;
-use App\Models\Country;
-use App\Models\Currency;
-use App\Models\DoctorSession;
-use App\Models\Notification;
 use App\Models\PaymentGateway;
 use App\Models\Setting;
-use App\Models\State;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
@@ -42,10 +35,10 @@ function getAppName()
     return (!empty($settings['app_name'])) ? $settings['app_name'] : config('app.name');
 
 }
-function getStates($countryId)
-{
-    return State::where('country_id', $countryId)->toBase()->pluck('name', 'id')->toArray();
-}
+//function getStates($countryId)
+//{
+//    return State::where('country_id', $countryId)->toBase()->pluck('name', 'id')->toArray();
+//}
 
 /**
  * @return mixed
@@ -76,15 +69,15 @@ function getFaviconLogo()
 /**
  * @return mixed
  */
-function getFloatingButtonLogo()
-{
-    static $setting;
-    if (empty($setting)) {
-        $setting = AppConfiguration::all()->keyBy('key');
-    }
-
-    return $setting['floating_buttton_logo']->value;
-}
+//function getFloatingButtonLogo()
+//{
+//    static $setting;
+//    if (empty($setting)) {
+//        $setting = AppConfiguration::all()->keyBy('key');
+//    }
+//
+//    return $setting['floating_buttton_logo']->value;
+//}
 
 /**
  *
@@ -106,24 +99,8 @@ function getDashboardURL()
     }elseif(Auth::user()->hasRole('member')){
         return  'user/dashboard';
     }
-    
+
     return RouteServiceProvider::HOME;
-}
-
-/**
- * @param $key
- *
- * @return mixed
- */
-function getAppConfigValue($key)
-{
-    static $setting;
-
-    if (empty($setting)) {
-        $setting = AppConfiguration::all()->keyBy('key');
-    }
-
-    return $setting[$key]->value;
 }
 
 /**
@@ -158,11 +135,6 @@ function checkCurrency($code)
 
     return false;
 //    $composerData = json_decode($composerFile, true);
-}
-
-function getCountries(): mixed
-{
-    return Country::pluck('name', 'id');
 }
 
 function getBadgeColor($index): string
@@ -221,81 +193,16 @@ function getAllPaymentStatus()
     return $paymentMethodToReturn;
 
 }
-function getCurrencyIcon()
-{
-    static $setting;
-
-    if (empty($setting)) {
-        $setting = Setting::all()->keyBy('key');
-    }
-
-    static $currencies;
-
-    if (empty($currencies)) {
-        $currencies = Currency::all()->keyBy('id');
-    }
-
-    $currencyId =  $setting['currency']->value;
-    $currency = $currencies[$currencyId];
-    $currencyIcon = $currency->currency_icon ?? '$';
-
-    return $currencyIcon;
-}
-function getCurrencyCode(){
-
-    static $setting;
-    if (empty($setting)) {
-        $setting = Setting::all()->keyBy('key');
-    }
-
-    static $currencies;
-
-    if (empty($currencies)) {
-        $currencies = Currency::all()->keyBy('id');
-    }
-
-    $currencyId =  $setting['currency']->value;
-    $currency = $currencies[$currencyId];
-    $currencyCode = $currency->currency_code ?? 'USD';
-
-    return $currencyCode;
-}
 function setStripeApiKey()
 {
     Stripe::setApiKey(config('services.stripe.secret_key'));
 }
+
 function zeroDecimalCurrencies(): array
 {
     return [
         'BIF', 'CLP', 'DJF', 'GNF', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'RWF', 'UGX', 'VND', 'VUV', 'XAF', 'XOF', 'XPF',
     ];
-}
-function getCurrencyId(){
-
-    static $setting;
-    if (empty($setting)) {
-        $setting = Setting::all()->keyBy('key');
-    }
-
-    static $currencies;
-
-    if (empty($currencies)) {
-        $currencies = Currency::all()->keyBy('id');
-    }
-
-    $currencyId =  $setting['currency']->value;
-
-
-    return $currencyId;
-}
-function getMonth()
-{
-    $months = array(
-        1  => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr', 5 => 'May', 6 => 'Jun', 7 => 'Jul', 8 => 'Aug', 9 => 'Sep',
-        10 => 'Oct', 11 => 'Nov', 12 => 'Dec',
-    );
-
-    return $months;
 }
 
 function getSettingValue()

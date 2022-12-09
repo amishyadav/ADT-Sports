@@ -16,10 +16,10 @@
     </div>
 @endsection
 @section('content')
-    @include('layouts.errors')
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
+                @include('layouts.errors')
                 {{ Form::open(['route' => 'users.store' ,'files' => true]) }}
                 @include('users.fields')
                 {{ Form::close() }}

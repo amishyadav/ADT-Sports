@@ -31,15 +31,15 @@
                     <label for="exampleInputImage" class="form-label">{{__('messages.common.profile')}}:</label>
                     <div class="d-block">
                         <div class="image-picker">
-                            <div class="image previewImage" id="exampleInputImage" 
+                            <div class="image previewImage" id="exampleInputImage"
                                  style="background-image: url({{ !empty($user->profile_image) ? $user->profile_image : asset('web/media/avatars/male.png') }})">
                             </div>
                             <span class="picker-edit rounded-circle text-gray-500 fs-small" data-bs-toggle="tooltip"
                                   data-placement="top" data-bs-original-title="{{ __('messages.user.edit_profile') }}">
-                        <label> 
-                            <i class="fa-solid fa-pen" id="profileImageIcon"></i> 
-                            <input type="file" id="profilePicture" name="profile" class="image-upload d-none" accept="image/*" /> 
-                        </label> 
+                        <label>
+                            <i class="fa-solid fa-pen" id="profileImageIcon"></i>
+                            <input type="file" id="profilePicture" name="profile" class="image-upload d-none" accept="image/*" />
+                        </label>
                     </span>
                         </div>
                     </div>
@@ -72,10 +72,6 @@
         </div>
     </div>
     <div class="row mb-5">
-        <div class="col-md-6 mb-5">
-            {{ Form::label('country_id',__('messages.user.countries').':' ,['class' => ' required form-label']) }}
-            {{ Form::select('country_id',  $countries, isset($user->address->country_id) ? $user->address->country_id:null,['class' => 'io-select2 form-select', 'data-control'=>"select2", 'id'=>'editDoctorCountryId','placeholder' => __('messages.user.countries')]) }}
-        </div>
         <div class="col-6">
             {{ Form::label('state', __('messages.user.state').':', ['class' => 'form-label ']) }}
             {{ Form::text('state', isset($user->address->state) ? $user->address->state : null, ['class' => 'form-control', 'placeholder' => __('messages.user.state'), 'required']) }}

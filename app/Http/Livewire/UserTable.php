@@ -35,15 +35,12 @@ class UserTable extends LivewireTableComponent
             Column::make("Email", "email")
                 ->hideIf('email')
                 ->sortable(),
-            Column::make("country", "created_at")
-                ->view('users.columns.country')
-                ->sortable(),
             Column::make("contact", "contact")
                 ->view('users.columns.contact')
-                ->sortable(),  
+                ->sortable(),
             Column::make("IMPERSONATE", "contact")
                 ->view('users.columns.inpersonate')
-                ->sortable(), 
+                ->sortable(),
             Column::make("status", "status")
                 ->view('users.columns.status')
                 ->sortable(),
@@ -54,6 +51,6 @@ class UserTable extends LivewireTableComponent
     }
     public function builder(): Builder
     {
-        return User::with('address.country');
+        return User::with('address')->orderByDesc('id');
     }
 }

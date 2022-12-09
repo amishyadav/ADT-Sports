@@ -2,15 +2,7 @@
 
 namespace App\Repositories;
 
-use App\DataTable\UserDataTable;
-use App\Models\Appointment;
-use App\Models\Country;
-use App\Models\Doctor;
-use App\Models\DoctorSession;
-use App\Models\Patient;
 use App\Models\Permission;
-use App\Models\Qualification;
-use App\Models\Specialization;
 use App\Models\User;
 use Arr;
 use Carbon\Carbon;
@@ -58,13 +50,13 @@ class UserRepository extends BaseRepository
      */
     public function store($input){
         $addressInputArray = Arr::only($input,
-            ['address_1', 'address_2', 'country_id', 'state', 'city', 'zip']);
-        
+            ['address_1', 'address_2', 'state', 'city', 'zip']);
+
         try {
             DB::beginTransaction();
             $input['email'] = setEmailLowerCase($input['email']);
             $input['status'] = (isset($input['status'])) ? 1 : 0;
-            $input['password'] = Hash::make($input['password']);    
+            $input['password'] = Hash::make($input['password']);
             $user = User::create($input);
             $user->assignRole('member');
             $user->address()->create($addressInputArray);
@@ -89,10 +81,10 @@ class UserRepository extends BaseRepository
      */
     public function update($input, $user): int
     {
-       
+
         $addressInputArray = Arr::only($input,
             ['address_1', 'address_2', 'country_id', 'state', 'city', 'zip']);
-        
+
         try {
             DB::beginTransaction();
             $input['email'] = setEmailLowerCase($input['email']);
@@ -100,7 +92,7 @@ class UserRepository extends BaseRepository
             $input['type'] = User::MEMBER;
             $user->update($input);
             $user->address()->update($addressInputArray);
-            
+
             if (isset($input['profile']) && ! empty('profile')) {
                 $user->clearMediaCollection(User::PROFILE);
                 $user->media()->delete();
@@ -129,7 +121,7 @@ class UserRepository extends BaseRepository
         return $countries;
     }
 
-   
 
-    
+
+
 }
