@@ -88,6 +88,8 @@ Route::group([
 
     // Logs Route
     Route::get('logs', [LogViewerController::class, 'index']);
+
+    Route::view('scoreboard','scoreboard.scoreboard');
 });
 require __DIR__.'/auth.php';
 //require __DIR__.'/user.php';
