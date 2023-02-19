@@ -183,9 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
         Lab404\Impersonate\ImpersonateServiceProvider::class,
-        Unicodeveloper\Paystack\PaystackServiceProvider::class,
-        Anand\LaravelPaytmWallet\PaytmWalletServiceProvider::class,
-        
+
         /*
          * Package Service Providers...
          */
@@ -217,6 +215,6 @@ return [
         'PaytmWallet' => Anand\LaravelPaytmWallet\Facades\PaytmWallet::class,
 
     ])->toArray(),
-     
-    
+
+
 ];
